@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-
+require_relative 'ship'
 class Warship < Ship
   def initialize
     super(4)
