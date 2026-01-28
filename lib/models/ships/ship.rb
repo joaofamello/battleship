@@ -1,11 +1,10 @@
-# frozen_string_literal: true
 
 class Ship
   attr_accessor :ship_size, :positions, :hits, :status
 
-  INTACT    = 0
-  DAMAGED   = 1
-  DESTROYED = 2
+  INTACT    = :Intact
+  DAMAGED   = :Damaged
+  DESTROYED = :Destroyed
 
   def initialize(ship_size)
     @ship_size = ship_size
