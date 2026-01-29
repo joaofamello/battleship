@@ -6,20 +6,26 @@ GEM
       prism (~> 1.5)
     prism (1.9.0)
     sqlite3 (2.9.0-x64-mingw-ucrt)
+    sqlite3 (2.9.0-x86_64-linux-gnu)
+    yard (0.9.38)
 
 PLATFORMS
   x64-mingw-ucrt
+  x86_64-linux
 
 DEPENDENCIES
   gosu
   minitest
   sqlite3
+  yard
 
 CHECKSUMS
   gosu (1.4.6) sha256=80c7fa48cf61f4960ef067fdd1c000d98b4adc8e11faeaa486543d00908a5c15
   minitest (6.0.1) sha256=7854c74f48e2e975969062833adc4013f249a4b212f5e7b9d5c040bf838d54bb
   prism (1.9.0) sha256=7b530c6a9f92c24300014919c9dcbc055bf4cdf51ec30aed099b06cd6674ef85
   sqlite3 (2.9.0-x64-mingw-ucrt) sha256=677333ebf8f496f7ffe89bf1e5f8c5331ffe83249228cb262cd896ce8d383da6
+  sqlite3 (2.9.0-x86_64-linux-gnu) sha256=72fff9bd750070ba3af695511ba5f0e0a2d8a9206f84869640b3e99dfaf3d5a5
+  yard (0.9.38) sha256=721fb82afb10532aa49860655f6cc2eaa7130889df291b052e1e6b268283010f
 
 BUNDLED WITH
   4.0.3
