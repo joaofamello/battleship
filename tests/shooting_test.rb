@@ -2,11 +2,13 @@ require 'minitest/autorun'
 require_relative '../lib/models/board'
 require_relative '../lib/models/ships/ship'
 require_relative '../lib/models/ships/submarine'
+require_relative '../lib/models/ships/flattop'
 require_relative '../lib/engine/shooting_mechanics'
 class ShootingTest < Minitest::Test
   def setup
     @tabuleiro = Board.new
     @submarino = Submarine.new
+    @flattop = Flattop.new
     @tiro = ShootingMechanics.new(@tabuleiro)
   end
 
@@ -32,6 +34,15 @@ class ShootingTest < Minitest::Test
     assert_equal(:DESTROYED, resultado)
     assert_equal(Board::HIT, @tabuleiro.status_at(5, 5))
     assert_equal(1, @submarino.hits)
+  end
+
+  def test_acertou_tiro_de_novo
+    @tabuleiro.place_ship(@flattop, 1, 1, :horizontal)
+
+    resultado = @tiro.shoot(1, 1)
+    assert_equal(:DAMAGED, resultado)
+    assert_equal(Board::HIT, @tabuleiro.status_at(1, 1))
+    assert_equal(1, @flattop.hits)
   end
 end
 
