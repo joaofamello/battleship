@@ -16,7 +16,11 @@ class ShootingMechanics
       ship = content
       ship.receive_hit
       @board.set_status(x, y, Board::HIT)
-      return ship.status ? :DESTROYED : :DAMAGED
+      if ship.status == Ship::DESTROYED
+        return :DESTROYED
+      else
+        return :DAMAGED
+      end
     else
       @board.set_status(x, y, Board::MISS)
       return :WATER
