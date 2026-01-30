@@ -2,13 +2,29 @@ require_relative 'base_ai'
 require_relative '../board'
 require_relative '../ships/ship'
 
+# Implementa o bot de nível intermediário
+#
+# Este bot escolhe de forma aleatória a casa em que vai atirar até que encontre um navio. Assim que o fizer, muda a estratégia usando a abordagem "Hunt and Target" que começa a buscar nas casas adjacentes até que o navio adversário seja destruído.
+# Também possui recurso de inferência de eixo, que analisa dois tiros e compreende se o navio está na vertical ou horizontal.
+# @see BaseAI Para entender o funcionamento de MediumBot
+# @author João Francisco
 class MediumBot < BaseAI
+  # Inicializa o bot intermediário e as suas estruturas de memória.
   def initialize
     super
     @target_queue = []
     @first_hit = nil
   end
 
+  # Realiza um disparo contra o tabuleiro do oponente.
+  #
+  # A lógica de decisão segue a ordem:
+  # 1. Se houver alvos na fila de prioridade (@target_queue), atira neles.
+  # 2. Se a fila estiver vazia, atira aleatoriamente em uma posição válida (não repetida).
+  # 3. Após decidir o tiro, analisa se o disparo acertaria um navio para atualizar sua inteligência futura.
+  #
+  # @param opponent_board [Board] O tabuleiro do jogador adversário.
+  # @return [Array<Integer, Integer>] Um array contendo as coordenadas [x, y] do tiro.
   def shoot(opponent_board)
     x, y = nil, nil
 
@@ -46,6 +62,11 @@ class MediumBot < BaseAI
 
   private
 
+  # Adiciona os vizinhos válidos (Cima, Baixo, Esquerda, Direita) à fila de alvos.
+  #
+  # @param x [Integer] Coordenada X do tiro atual.
+  # @param y [Integer] Coordenada Y do tiro atual.
+  # @param board [Board] Tabuleiro para verificação de limites.
   def queue_neighbors(x, y, board)
     neightbors = [[x, y - 1], [x, y + 1], [x - 1, y], [x + 1, y]]
 
@@ -65,6 +86,14 @@ class MediumBot < BaseAI
     end
   end
 
+  # Filtra a fila de prioridade com base na inferência de eixo.
+  #
+  # Se o bot acertou em (5,5) e depois em (6,5), ele deduz que o navio é HORIZONTAL.
+  # Imediatamente, ele remove da fila quaisquer palpites verticais (como 5,4 ou 5,6),
+  # economizando turnos.
+  #
+  # @param x [Integer] X do acerto atual.
+  # @param y [Integer] Y do acerto atual.
   def filter_based_axis(x, y)
     fx, fy = @first_hit
     if y == fy
