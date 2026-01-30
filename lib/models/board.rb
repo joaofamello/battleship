@@ -1,10 +1,10 @@
-# Representa o tabuleiro do jogo (grid 10x10)
+# Representa o tabuleiro do jogo (grid 10x10).
 # Responsável por armazenar o estado das células (água, navio e tiros)
 # e gerenciar o posicionamento dos navios.
 #
 # O grid funciona assim:
-# - Se a célula tiver {WATER}, {HIT} ou {MISS} ela contém um **Integer**.
-# - Se a célula tiver um navio intacto ela contém a **instância do objeto Ship**
+# - Se a célula tiver {WATER}, {HIT} ou {MISS} ela contém um *Integer*.
+# - Se a célula tiver um navio intacto ela contém a instância do objeto Ship.
 #
 # @author Jurandir Neto
 class Board
@@ -23,15 +23,16 @@ class Board
   def initialize
     @grid = Array.new(10) { Array.new(10, WATER) }
   end
-  # Verifica o conteúdo de uma coordenada específica
+  # Verifica o conteúdo de uma coordenada específica.
   #
   # @param x [Integer] A coluna (0 a 9).
   # @param y [Integer] A linha (0 a 9).
   #
   # @return [Integer, Ship, nil] Retorna:
-  #  - {WATER},{HIT} ou {MISS} que são integers, se for água ou marcação de tiro
+  #
+  #  - {WATER},{HIT} ou {MISS} que são integers, se for água ou marcação de tiro.
   #  - O objeto {Ship} se houver um navio intacto naquela posição.
-  #  - `nil` se as coordenadas estiverem fora do tabuleiro.
+  #  - nil se as coordenadas estiverem fora do tabuleiro.
   def status_at(x, y)
     if inside_bounds?(x, y)
       @grid[y][x]
@@ -42,7 +43,7 @@ class Board
   #
   # @param x [Integer] Coordenada X.
   # @param y [Integer] Coordenada Y.
-  # @return [Boolean] `true` se válido, `false` se fora do mapa.
+  # @return [Boolean] true se válido, false se fora do mapa.
   def inside_bounds?(x, y)
     x.between?(0, 9) && y.between?(0, 9)
   end
@@ -71,9 +72,9 @@ class Board
   # @param y [Integer] A coordenada Y inicial da frente do navio.
   # @param orientation [Symbol] A orientação: `:horizontal` ou `:vertical`.
   #
-  # @return [Boolean] `true` se o navio foi posicionado com sucesso, `false` se a posição for inválida.
+  # @return [Boolean] true se o navio foi posicionado com sucesso, false se a posição for inválida.
   #
-  # @example Posicionando um submarino
+  # @example Posicionando um submarino.
   #   board.place_ship(submarine, 0, 0, :horizontal) #=> true
   def place_ship(ship, x, y, orientation)
     return false unless valid_position?(ship, x, y, orientation)
@@ -97,6 +98,7 @@ class Board
   private
 
   # Verifica se o navio pode ser colocado na posição desejada.
+  #
   # Checa limites do mapa e se as células já estão ocupadas.
   #
   # @api private
