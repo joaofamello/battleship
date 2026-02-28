@@ -25,7 +25,7 @@ class Player
   # Realiza um disparo em uma posição do tabuleiro adversário.
   # @param x [Integer] coordenada horizontal
   # @param y [Integer] coordenada vertical
-  # @return [Symbol] resultado do disparo (:WATER, :DAMAGED, etc.)
+  # @return [Array(Symbol, Ship|nil)] [resultado, navio_atingido]
   def shoot(x, y)
     @shooter.shoot(x, y)
   end
