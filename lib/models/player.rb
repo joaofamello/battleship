@@ -37,11 +37,18 @@ class Player
   end
 
   # Reseta o tabuleiro e a frota de navios do jogador.
-  # Usado, por exemplo, ao avançar para uma nova fase
-  # ou iniciar uma nova partida.
   def reset_board
     @board = Board.new
     @fleet = build_fleet
+    @shooter = ShootingMechanics.new(@board)
+  end
+
+  # Usa uma frota e board pré-posicionados vindos da PlacementScreen.
+  # @param fleet [Array<Ship>] navios já posicionados
+  # @param board [Board] tabuleiro já montado
+  def use_pre_placed(fleet, board)
+    @fleet   = fleet
+    @board   = board
     @shooter = ShootingMechanics.new(@board)
   end
 
