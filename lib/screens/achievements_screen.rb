@@ -23,7 +23,7 @@ class AchievementsScreen < BaseScreen
   end
 
   def draw
-    draw_header("MEDALS")
+    draw_header("CONQUISTAS")
 
     AchievementManager::ACHIEVEMENTS.each_with_index do |(key, data), i|
       draw_achievement_card(key, data, CARD_X, START_Y + i * CARD_SPACING)

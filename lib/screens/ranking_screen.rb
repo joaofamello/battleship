@@ -16,7 +16,7 @@ class RankingScreen < BaseScreen
   end
 
   def draw
-    draw_header("HALL OF FAME")
+    draw_header("HALL DA FAMA")
     draw_column_headers
     draw_rows
     draw_footer_hint

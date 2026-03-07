@@ -18,21 +18,22 @@ class MenuScreen < BaseScreen
   end
 
   def draw
+
     if @logo
       scale = 0.5
       img_w = @logo.width * scale
       x = (@window.width - img_w) / 2
       @logo.draw(x, -150, 1, scale, scale)
     else
-      draw_header("BATTLESHIP")
+      draw_header("BATALHA NAVAL")
     end
 
-    draw_menu_btn("CAMPAIGN MODE", 0)
-    draw_menu_btn("DYNAMIC MODE", 1)
-    draw_menu_btn("LEADERBOARD", 2)
-    draw_menu_btn("MEDALS", 3)
-    draw_menu_btn("OPTIONS", 4)
-    draw_menu_btn("EXIT", 5)
+    draw_menu_btn("MODO CAMPANHA",   0)
+    draw_menu_btn("MODO DINÂMICO",   1)
+    draw_menu_btn("PLACAR",          2)
+    draw_menu_btn("CONQUISTAS",      3)
+    draw_menu_btn("OPÇÕES",          4)
+    draw_menu_btn("SAIR",            5)
 
     draw_centered_text("v1.0 - PLP", 580, Gosu::Color.new(0xff_475569), @info_font)
   end
