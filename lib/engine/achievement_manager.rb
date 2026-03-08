@@ -8,6 +8,7 @@ require_relative '../models/ships/ship'
 # - :capitao_mar_guerra → Acerte 8 tiros consecutivos.
 # - :capitao           → Acerte navios de 7 tipos diferentes seguidos (sem errar).
 # - :marinheiro        → Vença em menos de 3 minutos.
+# - :alma_negra      → Derrote o Davy Jones na missão impossível.
 #
 # @author Jurandir Neto
 class AchievementManager
@@ -34,6 +35,11 @@ class AchievementManager
       name: 'Marinheiro',
       description: 'Vença em menos de 3 minutos.',
       icon: '⏱'
+    },
+    jack_sparrow: {
+      name: 'Alma Negra',
+      description: 'Você mostrou o motivo de ser o mais temido dos mares. Derrotou o temido Davy Jones na missão impossível!',
+      icon: '☠'
     }
   }.freeze
 
@@ -58,6 +64,13 @@ class AchievementManager
     @ship_types_hit_streak = []
     @game_start_time       = Time.now
     @newly_unlocked        = []
+    @impossible_victory    = false
+  end
+
+  # Sinaliza que esta partida foi uma vitória contra o Davy Jones (missão impossível).
+  # Deve ser chamado antes de +register_victory+.
+  def flag_impossible_victory
+    @impossible_victory = true
   end
 
   # Deve ser chamado após cada disparo do jogador.
@@ -90,6 +103,7 @@ class AchievementManager
   def register_victory(player_fleet)
     check_almirante(player_fleet)
     check_marinheiro
+    check_jack_sparrow if @impossible_victory
     save_achievements
     @newly_unlocked
   end
@@ -137,6 +151,11 @@ class AchievementManager
   # Marinheiro: vencer em menos de MARINHEIRO_TIME_LIMIT segundos.
   def check_marinheiro
     unlock(:marinheiro) if elapsed_time <= MARINHEIRO_TIME_LIMIT
+  end
+
+  # Jack Sparrow: derrotar o Davy Jones na missão impossível.
+  def check_jack_sparrow
+    unlock(:jack_sparrow)
   end
 
   # Desbloqueia uma conquista (se ainda não desbloqueada).
